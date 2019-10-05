@@ -1,0 +1,30 @@
+.thumbnail img { 
+    max-height: 150px;
+}
+
+/* html { overflow:  hidden; } */
+.leftBlock{
+    display:inline-block;
+    float:left;
+}
+
+
+.blocked{
+    border: 1px solid white;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.thumbnail .description {
+    color: #7f7f7f;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.example {
+    display: flex;
+    flex-direction: column;
+}

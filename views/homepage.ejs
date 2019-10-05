@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-sm-2">
+    <h2 class="mt-4"><%= user.name %></h2>
+    <h4 class="mt-4"><%= user.groupName %></h4>
+  </div>
+  <div class="col-sm-8">
+
+  </div>
+  <div class="col-sm-2">
+    <table>
+      <tb>Group list</tb>
+      <% for(var i=0; i < groups.length; i++) { %>
+        <tr>
+          <td><%= groups[i] %></td>
+        </tr>
+      <% } %>
+    </table>
+    <form action="/grouplist" method="POST">
+      <div class="form-group">
+        <input type="groupName" id="groupName" name="groupName" class="form-control" placeholder="Enter Name"/>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">
+        Add to group
+      </button>
+    </form>  
+  </div>
+</div>
+
+
