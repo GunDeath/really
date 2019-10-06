@@ -1,20 +1,17 @@
 <% if(cart) { %>
     <div class="row">
-            <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
+        <div class="col-sm-3 float-left">
+            <p class="lead" style="color: white">Group : <%= groups %></p>
+        </div>
+        <div class="col-sm-6 ">
                 <ul class="list-group">
                     <% cart.forEach(function(items) { %>
                         <% if(groups === items.groupName) { %>
                             <li class="list-group-item">
                                 <strong><%= items.title %></strong>
                                 <span class="label label-success">$ <%= items.price %></span>
-                                <span class="label label-success">$ <%= items.groupName %></span>
-                                <div class="btn-group">
-                                    <button class="btn btn-primary btn-xs dropdown-toggle" type="button">Action <span class="caret"></span></button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Reduce by 1</a></li>
-                                        <li><a href="#">Remove</a></li>
-                                    </ul>
-                                </div>
+                                <span class="badge float-right">1</span>
+                                <button class="btn btn-primary btn-xs" type="button"><a href="/remove_item_group/<%- items.ID %>" style="color: white"> Remove</a></button>
                             </li>
                         <% } else { %>
                             <p>You have another carts items in other groups</p>
@@ -25,7 +22,7 @@
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
-                <button type="button" class="btn btn-success"><a href="/grouplist">Checkout</a></button>
+                <button type="button" class="btn btn-success"><a href="/grouplist" style="color: white">Back</a></button>
             </div>
         </div>
 <% } else { %>

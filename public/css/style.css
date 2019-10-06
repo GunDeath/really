@@ -5,9 +5,12 @@
 /* html { overflow:  hidden; } */
 .leftBlock{
     display:inline-block;
-    float:left;
+    float: left;
 }
 
+html { overflow-x: hidden; }
+
+a {  text-decoration: none; }
 
 .blocked{
     border: 1px solid white;

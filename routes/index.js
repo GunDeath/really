@@ -9,6 +9,7 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 //adding arrays
 const group = []
 const carts = []
+let GN;
 
 //adding function unique array
 function onlyUnique(value, index, self) { 
@@ -32,10 +33,13 @@ router.get('/homepage', ensureAuthenticated,function (req, res){
           foundObject.groupName = 'You have not group';
         }
         foundObject.save(function(err, updatedObject){ 
-          res.render('homepage', {
-            user: updatedObject, 
-            groups : unique
-            });  
+          Product.find({}, function(err, products) {
+            res.render('homepage', {
+              user: updatedObject, 
+              group : unique,
+              products : products
+              });  
+          })
         })
       }
     })
@@ -46,6 +50,7 @@ router.get('/homepage', ensureAuthenticated,function (req, res){
 router.post('/grouplist',function (req, res){
   const usr = req.user;
   const id = usr.id;
+  GN = req.body.groupName;
 
   group.push(req.body.groupName);
 
@@ -66,7 +71,8 @@ router.post('/grouplist',function (req, res){
     {
       res.render('grouplist', { 
         user: usr, 
-        groups : req.body.groupName, 
+        groups : GN, 
+        group: GN,
         users:users,
         products: products
       });
@@ -77,6 +83,7 @@ router.post('/grouplist',function (req, res){
 // list of products ad users group
 router.get('/grouplist', (req, res) => {
   const usr = req.user;
+  let unique = group.filter( onlyUnique );
 
   User.find({groupName: req.body.groupName}, (err, users) => {
     if(err){
@@ -86,7 +93,8 @@ router.get('/grouplist', (req, res) => {
     Product.find({}, function (err, products){
       res.render('grouplist', {
         user: usr,
-        groups: req.body.groupName,
+        groups : GN,
+        group: unique,
         users: users,
         products: products
       })
@@ -98,16 +106,25 @@ router.get('/grouplist', (req, res) => {
 router.get('/add_group_cart/:id', (req, res) => {
   let productID = req.params.id;
   const usr = req.user;
+  let count = 0;
 
   Product.findById(productID, (err, product) => {
     if(err){
       return res.redirect('/homepage');
     }
-    carts.push(new groupCart(product.titleProduct, product.price, usr.groupName));
-    console.log(carts)
+    count = Date.now();
+    carts.push(new groupCart(product.titleProduct, product.price, usr.groupName, count));
     res.redirect('/grouplist');
   })
 })
+
+router.get('/remove_item_group/:id', (req, res, next) => {
+  let productID = req.params.id;
+ 
+  carts.pop()
+
+  res.redirect('/group_cart');
+});
 
 //show group cart
 router.get('/group_cart', (req, res) => {
@@ -128,7 +145,25 @@ router.get('/add_to_cart/:id', (req, res) => {
     req.session.cart = cart;
     res.redirect('/grouplist');
   })
-})
+})  
+
+router.get('/reduce/:id', (req, res, next) => {
+  let productID = req.params.id;
+  let cart = new Cart(req.session.cart ? req.session.cart.items : {});
+
+  cart.reduceByOne(productID);
+  req.session.cart = cart;
+  res.redirect('/cart');
+});
+
+router.get('/remove/:id', (req, res, next) => {
+  let productID = req.params.id;
+  let cart = new Cart(req.session.cart ? req.session.cart.items : {});
+
+  cart.removeItem(productID);
+  req.session.cart = cart;
+  res.redirect('/cart');
+});
 
 //show user cart
 router.get('/cart', (req, res) => {

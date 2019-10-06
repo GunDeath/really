@@ -11,8 +11,12 @@
                     <p class="description"><%= products[i].descriptionProduct %></p>
                     <div class="mb-2">
                         <div class="price float-left"> $ <%= products[i].price %></div>
-                        <a href="/add_to_cart/<%- products[i]._id %>" class="btn btn-success float-right" role="button">Add to cart</a>
-                        <a href="/add_group_cart/<%- products[i]._id %>" class="btn btn-success float-right" role="button">Add to group cart</a>
+                        <% if(group.length == 0) { %>
+                            <a href="/add_to_cart/<%- products[i]._id %>" class="btn btn-success float-right" role="button">Add to cart</a>
+                        <% } else { %>
+                            <a href="/add_to_cart/<%- products[i]._id %>" class="btn btn-success float-right" role="button">Add to cart</a>
+                            <a href="/add_group_cart/<%- products[i]._id %>" class="btn btn-success float-right mr-2" role="button">Add to group cart</a>
+                        <% } %>
                     </div>
                 </div>
             </div>

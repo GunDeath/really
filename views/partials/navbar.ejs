@@ -1,34 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Navbar</a>
+    <a class="navbar-brand" href="/">Fruit shop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-    
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search"> 
-                </li>
-                <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
-                    <a class="mr-3 btn btn-success"  href="/cart/">
-                        Cart
-                    
+                    <a class="mr-5 btn btn-primary"  href="/cart/">
+                        <i class="fas fa-cart-arrow-down"></i>
                     </a>
+                    <% if(login) { %>
+                        <a class=" btn btn-outline-success"  href="/users/logout">LogOut</a>
+                        <% } else { %>
                 <a class="mr-3 btn btn-success"  href="/users/login">LogIn</a>
                 <a class="mr-3 btn btn-outline-primary"  href="/users/register">SignUp</a>
-                <a class=" btn btn-outline-success"  href="/users/logout">LogOut</a>
+                <% } %>
+                
             </div>
         </div>
     </nav>

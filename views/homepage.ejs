@@ -4,14 +4,14 @@
     <h4 class="mt-4"><%= user.groupName %></h4>
   </div>
   <div class="col-sm-8">
-
+    <% include product.ejs %>
   </div>
   <div class="col-sm-2">
     <table>
-      <tb>Group list</tb>
-      <% for(var i=0; i < groups.length; i++) { %>
+      <p class="lead">Group list</p>
+      <% for(var i=0; i < group.length; i++) { %>
         <tr>
-          <td><%= groups[i] %></td>
+          <td><%= group[i] %></td>
         </tr>
       <% } %>
     </table>
